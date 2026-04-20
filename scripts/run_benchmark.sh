@@ -7,6 +7,7 @@ TS=$(date -u +%Y%m%dT%H%M%SZ)
 OUT_DIR="$ROOT_DIR/artifacts/bench/$TS/$SCENARIO"
 mkdir -p "$OUT_DIR"
 
+BASE_URL="${BASE_URL:-${TARGET_BASE_URL:-http://localhost:8088}}"
 POST_IDS_FILE="${POST_IDS_FILE:-$ROOT_DIR/artifacts/seed/post_ids.txt}"
 POST_IDS=""
 if [[ -f "$POST_IDS_FILE" ]]; then
@@ -17,7 +18,7 @@ set +e
 docker run --rm --network host \
   -v "$ROOT_DIR/bench/k6:/scripts" \
   -v "$OUT_DIR:/out" \
-  -e BASE_URL="${BASE_URL:-http://localhost:8088}" \
+  -e BASE_URL="$BASE_URL" \
   -e SCENARIO="$SCENARIO" \
   -e TARGET_QPS="${TARGET_QPS:-200}" \
   -e TEST_DURATION="${TEST_DURATION:-30s}" \
@@ -36,6 +37,7 @@ cat > "$OUT_DIR/report.md" <<RPT
 # Benchmark Report
 - Scenario: $SCENARIO
 - Timestamp(UTC): $TS
+- Base URL: $BASE_URL
 - Target QPS: ${TARGET_QPS:-200}
 - Duration: ${TEST_DURATION:-30s}
 - Exit Code: $RC

@@ -18,7 +18,41 @@ Client -> OpenResty(Lua JWT+黑名单) -> Java Spring Boot Web Node -> gRPC -> G
 - `scripts/`: 一键脚本
 - `artifacts/`: 压测输出
 
-## 快速开始（测试机可直接复制）
+## 两机模式（推荐）
+
+- **被测机 (SUT)**：部署并运行整套业务容器。
+- **压测机 (LG)**：仅执行 seed（可选）和 k6 压测，通过 VPC 访问被测机网关。
+
+> 假设被测机网关 VPC 地址是 `10.0.1.23:8088`。
+
+### A. 被测机执行
+
+```bash
+cp .env.example .env
+
+docker compose up -d --build
+STACK_BASE_URL=http://localhost:8088 ./scripts/wait_for_stack.sh
+
+# 推荐在被测机本地 seed（走 compose seeder）
+SEED_MODE=compose ./scripts/seed_data.sh
+```
+
+### B. 压测机执行
+
+```bash
+cp .env.example .env
+
+# 可选：如果你把被测机 seed 生成的 post_ids.txt 拷贝到压测机，可直接复用
+# scp sut:/path/to/artifacts/seed/post_ids.txt ./artifacts/seed/post_ids.txt
+
+TARGET_BASE_URL=http://10.0.1.23:8088 ./scripts/run_benchmark.sh smoke
+TARGET_BASE_URL=http://10.0.1.23:8088 ./scripts/run_benchmark.sh mixed
+TARGET_BASE_URL=http://10.0.1.23:8088 ./scripts/find_max_qps.sh
+
+ls -R artifacts/bench
+```
+
+## 单机模式（本地）
 
 ```bash
 cp .env.example .env
@@ -53,6 +87,7 @@ ls -R artifacts/bench
 
 参数由环境变量控制：
 
+- `TARGET_BASE_URL` (被测机网关入口)
 - `TARGET_QPS`
 - `TEST_DURATION`
 - `VUS_MAX`
@@ -60,6 +95,19 @@ ls -R artifacts/bench
 - `FAIL_ERROR_RATE`
 - `FAIL_P95_MS`
 - `FAIL_P99_MS`
+
+## Seed 模式
+
+`./scripts/seed_data.sh` 支持两种模式：
+
+- `SEED_MODE=compose`：使用 compose seeder（默认，适合被测机本地）
+- `SEED_MODE=remote`：在当前机器临时 build seeder 镜像，直连 `GATEWAY_BASE` 远程造数
+
+示例：
+
+```bash
+SEED_MODE=remote GATEWAY_BASE=http://10.0.1.23:8088 ./scripts/seed_data.sh
+```
 
 ## 自动找上限
 
@@ -95,7 +143,7 @@ seed 输出：
 ## 常用命令
 
 ```bash
-# 启停
+# 被测机启动
 
 docker compose up -d --build
 docker compose ps
@@ -103,7 +151,7 @@ docker compose logs -f gateway web-node core-service consumer
 
 docker compose down -v
 
-# 手工 smoke
-curl -sS http://localhost:8088/healthz
-curl -sS http://localhost:8088/readyz
+# 健康检查（可指定远程）
+STACK_BASE_URL=http://localhost:8088 ./scripts/wait_for_stack.sh
+STACK_BASE_URL=http://10.0.1.23:8088 ./scripts/wait_for_stack.sh
 ```
