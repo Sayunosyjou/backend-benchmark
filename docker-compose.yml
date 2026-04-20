@@ -1,0 +1,104 @@
+version: "3.9"
+services:
+  redpanda:
+    image: redpandadata/redpanda:v24.2.18
+    command: ["redpanda", "start", "--overprovisioned", "--smp", "1", "--memory", "1G", "--reserve-memory", "0M", "--node-id", "0", "--check=false", "--kafka-addr", "PLAINTEXT://0.0.0.0:9092", "--advertise-kafka-addr", "PLAINTEXT://redpanda:9092"]
+    ports: ["9092:9092"]
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy: true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  mongo:
+    image: mongo:7.0.20
+    ports: ["27017:27017"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  valkey:
+    image: valkey/valkey:8.0.2
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  core-service:
+    build:
+      context: .
+      dockerfile: core-service-go/Dockerfile
+    environment:
+      VALKEY_ADDR: valkey:6379
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: social
+      MONGO_COLLECTION: posts
+      KAFKA_BROKER: redpanda:9092
+      KAFKA_TOPIC: post-events
+      MAX_CACHE_RECENT: ${MAX_CACHE_RECENT:-3000}
+    depends_on:
+      valkey: { condition: service_healthy }
+      mongo: { condition: service_healthy }
+      redpanda: { condition: service_healthy }
+
+  consumer:
+    build:
+      context: ./consumer-go
+      dockerfile: Dockerfile
+    environment:
+      VALKEY_ADDR: valkey:6379
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: social
+      MONGO_COLLECTION: posts
+      KAFKA_BROKER: redpanda:9092
+      KAFKA_TOPIC: post-events
+      KAFKA_GROUP: post-consumer
+      BATCH_FLUSH_MS: ${BATCH_FLUSH_MS:-200}
+      MAX_BATCH_SIZE: ${MAX_BATCH_SIZE:-500}
+    depends_on:
+      core-service: { condition: service_started }
+
+  web-node:
+    build:
+      context: .
+      dockerfile: web-node-java/Dockerfile
+    environment:
+      GRPC_TARGET: core-service:9090
+    depends_on:
+      core-service: { condition: service_started }
+
+  gateway:
+    build:
+      context: ./gateway-openresty
+      dockerfile: Dockerfile
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+      VALKEY_HOST: valkey
+      VALKEY_PORT: 6379
+    depends_on:
+      web-node: { condition: service_started }
+      valkey: { condition: service_healthy }
+    ports:
+      - "8088:8088"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8088/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 20
+
+  seeder:
+    build:
+      context: ./seeder-go
+      dockerfile: Dockerfile
+    environment:
+      GATEWAY_BASE: http://gateway:8088
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+      SEED_POST_COUNT: ${SEED_POST_COUNT:-5000}
+      SEED_USER_COUNT: ${SEED_USER_COUNT:-200}
+    depends_on:
+      gateway: { condition: service_healthy }
+    profiles: ["tools"]
