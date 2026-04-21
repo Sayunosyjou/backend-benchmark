@@ -31,6 +31,7 @@ Client -> OpenResty(Lua JWT+黑名单) -> Java Spring Boot Web Node -> gRPC -> G
 cp .env.example .env
 
 docker compose up -d --build
+# 若构建机不稳定，改用串行构建：./scripts/build_stack.sh
 STACK_BASE_URL=http://localhost:8088 ./scripts/wait_for_stack.sh
 
 # 推荐在被测机本地 seed（走 compose seeder）
@@ -58,6 +59,7 @@ ls -R artifacts/bench
 cp .env.example .env
 
 docker compose up -d --build
+# 若构建机不稳定，改用串行构建：./scripts/build_stack.sh
 ./scripts/wait_for_stack.sh
 ./scripts/seed_data.sh
 
@@ -67,6 +69,25 @@ docker compose up -d --build
 
 ls -R artifacts/bench
 ```
+
+
+## Build 异常排查（snapshot does not exist）
+
+如果遇到 BuildKit 报错（例如 `snapshot ... does not exist`），优先使用串行构建脚本：
+
+```bash
+./scripts/build_stack.sh
+```
+
+若仍失败，可在被测机执行：
+
+```bash
+docker builder prune -af
+docker system prune -af
+DISABLE_BUILDKIT=1 ./scripts/build_stack.sh
+```
+
+`DISABLE_BUILDKIT=1` 会切到经典构建路径，通常可绕过部分存储驱动/BuildKit 快照异常。
 
 ## 接口
 
