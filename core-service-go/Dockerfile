@@ -1,4 +1,4 @@
-FROM golang:1.22.12-bookworm AS builder
+FROM golang:1.23.8-bookworm AS builder
 WORKDIR /src/core-service-go
 RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.6 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1

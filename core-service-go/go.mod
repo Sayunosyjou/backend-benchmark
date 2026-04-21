@@ -2,14 +2,13 @@ module core-service-go
 
 go 1.23
 
-toolchain go1.24.3
-
 require (
 	github.com/IBM/sarama v1.45.1
 	github.com/google/uuid v1.6.0
 	github.com/redis/go-redis/v9 v9.7.0
 	go.mongodb.org/mongo-driver v1.17.4
 	google.golang.org/grpc v1.72.1
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
@@ -42,5 +41,4 @@ require (
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
-	google.golang.org/protobuf v1.36.6 // indirect
 )
