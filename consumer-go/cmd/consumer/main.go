@@ -33,7 +33,7 @@ type Post struct {
 	Content   string   `bson:"content"`
 	Tags      []string `bson:"tags"`
 	CreatedAt int64    `bson:"createdAt"`
-	LikeCount int64    `bson:"likeCount"`
+	LikeCount int64    `bson:"likeCount,omitempty"`
 	Status    string   `bson:"status"`
 }
 
@@ -56,7 +56,7 @@ func main() {
 	maxBatch, _ := strconv.Atoi(getenv("MAX_BATCH_SIZE", "500"))
 
 	cfg := sarama.NewConfig()
-	cfg.Version = sarama.V3_6_0_0
+	cfg.Version = sarama.V2_1_0_0
 	cfg.Consumer.Return.Errors = true
 	group, err := sarama.NewConsumerGroup(strings.Split(getenv("KAFKA_BROKER", "redpanda:9092"), ","), getenv("KAFKA_GROUP", "post-consumer"), cfg)
 	if err != nil {

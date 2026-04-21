@@ -1,0 +1,377 @@
+[build] core-service
+ Image backend-benchmark-core-service Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 558B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 835B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for gcr.io/distroless/base-debian12:nonroot
+#3 DONE 0.1s
+
+#4 [internal] load metadata for docker.io/library/golang:1.23.8-bookworm
+#4 DONE 0.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [stage-1 1/3] FROM gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305
+#6 resolve gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305 0.0s done
+#6 DONE 0.0s
+
+#7 [builder  1/10] FROM docker.io/library/golang:1.23.8-bookworm@sha256:0b4f8c5d414756a53ba0e4d235151f9b246552e512c3feaad5f9a3251376b279
+#7 resolve docker.io/library/golang:1.23.8-bookworm@sha256:0b4f8c5d414756a53ba0e4d235151f9b246552e512c3feaad5f9a3251376b279 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 896B done
+#8 DONE 0.0s
+
+#9 [builder  3/10] RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [builder  9/10] RUN mkdir -p proto && protoc --proto_path=/src/proto --go_out=proto --go_opt=paths=source_relative --go-grpc_out=proto --go-grpc_opt=paths=source_relative /src/proto/post.proto
+#10 CACHED
+
+#11 [stage-1 2/3] WORKDIR /app
+#11 CACHED
+
+#12 [builder  4/10] RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.6 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+#12 CACHED
+
+#13 [builder  5/10] COPY core-service-go/go.mod core-service-go/go.sum ./
+#13 CACHED
+
+#14 [builder  8/10] COPY proto /src/proto
+#14 CACHED
+
+#15 [builder 10/10] RUN go build -o /out/core-service ./cmd/server
+#15 CACHED
+
+#16 [builder  7/10] COPY core-service-go .
+#16 CACHED
+
+#17 [builder  6/10] RUN go mod download
+#17 CACHED
+
+#18 [builder  2/10] WORKDIR /src/core-service-go
+#18 CACHED
+
+#19 [stage-1 3/3] COPY --from=builder /out/core-service /app/core-service
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:1325c66e4bb02ac62029a61f554385074c82c3279cbd0b09cf47a7fbe2c1c4a6 done
+#20 exporting config sha256:e9394ba4789fa20ab66060e4181ac2433212d1637343714cefa1701038a9ee70 done
+#20 exporting attestation manifest sha256:cbc8c0153c461c537f829424ed3bbc97964c5493b180ec654561fef57c472c26 0.0s done
+#20 exporting manifest list sha256:78af3e6ef249040908c9636634556b55ec08a73de21e8b62ad5d5d626430caff
+#20 exporting manifest list sha256:78af3e6ef249040908c9636634556b55ec08a73de21e8b62ad5d5d626430caff 0.0s done
+#20 naming to docker.io/library/backend-benchmark-core-service:latest done
+#20 unpacking to docker.io/library/backend-benchmark-core-service:latest 0.0s done
+#20 DONE 0.1s
+
+#21 resolving provenance for metadata file
+#21 DONE 0.0s
+ Image backend-benchmark-core-service Built 
+[build] web-node
+ Image backend-benchmark-web-node Building 
+ Image backend-benchmark-core-service Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 987B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 410B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#3 ...
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-jammy
+#4 DONE 0.3s
+
+#3 [internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#3 DONE 0.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre-jammy@sha256:fa4854e6057665066cb79953616671c20f32b96a85d6dd8b78db0762203924c4
+#6 resolve docker.io/library/eclipse-temurin:21-jre-jammy@sha256:fa4854e6057665066cb79953616671c20f32b96a85d6dd8b78db0762203924c4 0.0s done
+#6 DONE 0.0s
+
+#7 [builder 1/6] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+#7 resolve docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 8.46kB done
+#8 DONE 0.0s
+
+#9 [builder 4/6] COPY web-node-java/src ./src
+#9 CACHED
+
+#10 [builder 3/6] COPY web-node-java/pom.xml ./
+#10 CACHED
+
+#11 [builder 5/6] COPY proto /src/proto
+#11 CACHED
+
+#12 [builder 2/6] WORKDIR /src/web-node-java
+#12 CACHED
+
+#13 [builder 6/6] RUN mvn -q -DskipTests package
+#13 CACHED
+
+#14 [stage-1 2/3] WORKDIR /app
+#14 CACHED
+
+#15 [stage-1 3/3] COPY --from=builder /src/web-node-java/target/web-node-java-0.0.1.jar /app/app.jar
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:9f678a7173601cd8c36abe0e8e2006aacd5365293d9bb6190ce3dd6f8f682066 done
+#16 exporting config sha256:0ec29fbea0f53be279b0b34a6f3cee94b6ead83ed1304978059f22c78668cd0b done
+#16 exporting attestation manifest sha256:c1093751ba1be6ca60231b36f37a55a94bb916f5b144f336c42e6583a8fc5733 0.0s done
+#16 exporting manifest list sha256:df985bf26f087bd0499637d6eb6a3d51f95243cdfe0f0fa58ffde201dec5526e 0.0s done
+#16 naming to docker.io/library/backend-benchmark-web-node:latest
+#16 naming to docker.io/library/backend-benchmark-web-node:latest done
+#16 unpacking to docker.io/library/backend-benchmark-web-node:latest done
+#16 DONE 0.1s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image backend-benchmark-web-node Built 
+[build] gateway
+ Image backend-benchmark-core-service Building 
+ Image backend-benchmark-web-node Building 
+ Image backend-benchmark-gateway Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.44kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 373B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/openresty/openresty:1.25.3.2-0-bookworm-fat
+#3 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 87B done
+#5 DONE 0.0s
+
+#6 [1/4] FROM docker.io/openresty/openresty:1.25.3.2-0-bookworm-fat@sha256:5281edb33dbd83765b5c57b7a4f590cca8fe3f6cc1392fb93c2ce1fa720dc771
+#6 resolve docker.io/openresty/openresty:1.25.3.2-0-bookworm-fat@sha256:5281edb33dbd83765b5c57b7a4f590cca8fe3f6cc1392fb93c2ce1fa720dc771 0.0s done
+#6 DONE 0.0s
+
+#7 [2/4] RUN /usr/local/openresty/bin/opm get SkyLothar/lua-resty-jwt  && /usr/local/openresty/bin/opm get openresty/lua-resty-redis
+#7 CACHED
+
+#8 [3/4] COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+#8 CACHED
+
+#9 [4/4] COPY lua /etc/nginx/lua
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers done
+#10 exporting manifest sha256:ab47e9324da2a7407379d8493cc7fc9bd0504451d3ef96f11841d7d05225b0af done
+#10 exporting config sha256:b671c97683cf39191778805855e096d5edd24f383cc7ccd6505c07620abc15c9 done
+#10 exporting attestation manifest sha256:d0898450d9a5372de59370b5a1b743e7517100fad9c07b28c082df131b39edde 0.0s done
+#10 exporting manifest list sha256:b6dc89e37c765b5c4e48e65460d9f7c0afc4afb8108f825fc70dd5b358b11b91 0.0s done
+#10 naming to docker.io/library/backend-benchmark-gateway:latest
+#10 naming to docker.io/library/backend-benchmark-gateway:latest done
+#10 unpacking to docker.io/library/backend-benchmark-gateway:latest done
+#10 DONE 0.1s
+
+#11 resolving provenance for metadata file
+#11 DONE 0.0s
+ Image backend-benchmark-gateway Built 
+[build] consumer
+ Image backend-benchmark-consumer Building 
+ Image backend-benchmark-core-service Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 997B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 324B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for gcr.io/distroless/base-debian12:nonroot
+#3 DONE 0.1s
+
+#4 [internal] load metadata for docker.io/library/golang:1.22.12-bookworm
+#4 DONE 0.1s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [stage-1 1/3] FROM gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305
+#6 resolve gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305 0.0s done
+#6 DONE 0.0s
+
+#7 [builder 1/6] FROM docker.io/library/golang:1.22.12-bookworm@sha256:3d699e4d15d0f8f13c9195c0632a16702b8cbdece2955af1c23b37ae5d55a253
+#7 resolve docker.io/library/golang:1.22.12-bookworm@sha256:3d699e4d15d0f8f13c9195c0632a16702b8cbdece2955af1c23b37ae5d55a253 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 179B done
+#8 DONE 0.0s
+
+#9 [builder 6/6] RUN go build -o /out/consumer ./cmd/consumer
+#9 CACHED
+
+#10 [stage-1 2/3] WORKDIR /app
+#10 CACHED
+
+#11 [builder 2/6] WORKDIR /src
+#11 CACHED
+
+#12 [builder 5/6] COPY . .
+#12 CACHED
+
+#13 [builder 3/6] COPY go.mod go.sum ./
+#13 CACHED
+
+#14 [builder 4/6] RUN go mod download
+#14 CACHED
+
+#15 [stage-1 3/3] COPY --from=builder /out/consumer /app/consumer
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:a8c4267ef5e77f4ed844dfe780fb9ca3453cb2af469fe650eaffaa9300924374 done
+#16 exporting config sha256:dece415a4b8e084a6c10bd9cf9c5f506722a8868def3b899721fd3f106e33e43
+#16 exporting config sha256:dece415a4b8e084a6c10bd9cf9c5f506722a8868def3b899721fd3f106e33e43 done
+#16 exporting attestation manifest sha256:8f5b78e06022e9936c408daa34e40759f7bfe152ac9c24a9dae0e6eecffac2a0 0.0s done
+#16 exporting manifest list sha256:150ab206fb7d81f1c2de79dac5ebe659b56f92d84104b2b5bd765ff47e4c032c 0.0s done
+#16 naming to docker.io/library/backend-benchmark-consumer:latest done
+#16 unpacking to docker.io/library/backend-benchmark-consumer:latest 0.0s done
+#16 DONE 0.1s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image backend-benchmark-consumer Built 
+[build] seeder
+ Image backend-benchmark-seeder Building 
+ Image backend-benchmark-web-node Building 
+ Image backend-benchmark-gateway Building 
+ Image backend-benchmark-core-service Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.87kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 314B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for gcr.io/distroless/base-debian12:nonroot
+#3 DONE 0.1s
+
+#4 [internal] load metadata for docker.io/library/golang:1.22.12-bookworm
+#4 DONE 0.1s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [builder 1/6] FROM docker.io/library/golang:1.22.12-bookworm@sha256:3d699e4d15d0f8f13c9195c0632a16702b8cbdece2955af1c23b37ae5d55a253
+#6 resolve docker.io/library/golang:1.22.12-bookworm@sha256:3d699e4d15d0f8f13c9195c0632a16702b8cbdece2955af1c23b37ae5d55a253 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-1 1/3] FROM gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305
+#7 resolve gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305 0.0s done
+#7 DONE 0.0s
+
+#8 [stage-1 2/3] WORKDIR /app
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 2.92kB done
+#9 DONE 0.0s
+
+#10 [builder 2/6] WORKDIR /src
+#10 CACHED
+
+#11 [builder 3/6] COPY go.mod go.sum ./
+#11 DONE 0.0s
+
+#12 [builder 4/6] RUN go mod download
+#12 DONE 0.2s
+
+#13 [builder 5/6] COPY . .
+#13 DONE 0.0s
+
+#14 [builder 6/6] RUN go build -o /out/seeder ./cmd/seeder
+#14 DONE 7.0s
+
+#15 [stage-1 3/3] COPY --from=builder /out/seeder /app/seeder
+#15 DONE 0.0s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.3s done
+#16 exporting manifest sha256:978bbede843be4314b6224ffafdc2050d9da63ddc1cb18f5fb8fa70d97f7d9f1 0.0s done
+#16 exporting config sha256:59ec60cc4ac3f81139ac3c3f67f6eaf1f6e6c9abc5e9f695c948e209b3c96869 0.0s done
+#16 exporting attestation manifest sha256:ae512f858f8c47aec484e9521db372a7e0561654c52365c51352f1e67cf018a5 0.0s done
+#16 exporting manifest list sha256:014bf46b8a6e7bbe1ca90a6b07df053afad73707d2327f980817ab20594a89d1 0.0s done
+#16 naming to docker.io/library/backend-benchmark-seeder:latest done
+#16 unpacking to docker.io/library/backend-benchmark-seeder:latest 0.1s done
+#16 DONE 0.5s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image backend-benchmark-seeder Built 
+[up] docker compose up -d
+ Network backend-benchmark_default Creating 
+ Network backend-benchmark_default Created 
+ Container backend-benchmark-mongo-1 Creating 
+ Container backend-benchmark-redpanda-1 Creating 
+ Container backend-benchmark-valkey-1 Creating 
+ Container backend-benchmark-redpanda-1 Created 
+ Container backend-benchmark-mongo-1 Created 
+ Container backend-benchmark-valkey-1 Created 
+ Container backend-benchmark-core-service-1 Creating 
+ Container backend-benchmark-core-service-1 Created 
+ Container backend-benchmark-web-node-1 Creating 
+ Container backend-benchmark-consumer-1 Creating 
+ Container backend-benchmark-web-node-1 Created 
+ Container backend-benchmark-gateway-1 Creating 
+ Container backend-benchmark-consumer-1 Created 
+ Container backend-benchmark-gateway-1 Created 
+ Container backend-benchmark-valkey-1 Starting 
+ Container backend-benchmark-mongo-1 Starting 
+ Container backend-benchmark-redpanda-1 Starting 
+ Container backend-benchmark-redpanda-1 Started 
+ Container backend-benchmark-mongo-1 Started 
+ Container backend-benchmark-valkey-1 Started 
+ Container backend-benchmark-valkey-1 Waiting 
+ Container backend-benchmark-mongo-1 Waiting 
+ Container backend-benchmark-redpanda-1 Waiting 
+ Container backend-benchmark-valkey-1 Healthy 
+ Container backend-benchmark-mongo-1 Healthy 
+ Container backend-benchmark-redpanda-1 Healthy 
+ Container backend-benchmark-core-service-1 Starting 
+ Container backend-benchmark-core-service-1 Started 
+ Container backend-benchmark-web-node-1 Starting 
+ Container backend-benchmark-consumer-1 Starting 
+ Container backend-benchmark-consumer-1 Started 
+ Container backend-benchmark-web-node-1 Started 
+ Container backend-benchmark-valkey-1 Waiting 
+ Container backend-benchmark-valkey-1 Healthy 
+ Container backend-benchmark-gateway-1 Starting 
+ Container backend-benchmark-gateway-1 Started 

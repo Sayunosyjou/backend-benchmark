@@ -30,20 +30,20 @@ public class PostController {
     }
 
     @GetMapping("/api/v1/posts/{postId}")
-    public Map<String, Object> getPost(@PathVariable String postId) {
+    public Map<String, Object> getPost(@PathVariable("postId") String postId) {
         var p = stub.getPost(GetPostRequest.newBuilder().setPostId(postId).build()).getPost();
         return Map.of("postId", p.getPostId(), "authorId", p.getAuthorId(), "content", p.getContent(), "tags", p.getTagsList(), "createdAt", p.getCreatedAtUnixMs(), "likeCount", p.getLikeCount(), "status", p.getStatus());
     }
 
     @GetMapping("/api/v1/feed/hot")
-    public List<Map<String, Object>> hot(@RequestParam(defaultValue = "50") int limit) {
+    public List<Map<String, Object>> hot(@RequestParam(value = "limit", defaultValue = "50") int limit) {
         return stub.getHotFeed(GetHotFeedRequest.newBuilder().setLimit(limit).build()).getPostsList().stream().map(p -> Map.<String, Object>of(
                 "postId", p.getPostId(), "authorId", p.getAuthorId(), "content", p.getContent(), "tags", p.getTagsList(), "createdAt", p.getCreatedAtUnixMs(), "likeCount", p.getLikeCount(), "status", p.getStatus()
         )).toList();
     }
 
     @PostMapping("/api/v1/posts/{postId}/like")
-    public Map<String, Object> like(@PathVariable String postId, @RequestHeader(value = "X-User-Id", defaultValue = "bench-user") String userId) {
+    public Map<String, Object> like(@PathVariable("postId") String postId, @RequestHeader(value = "X-User-Id", defaultValue = "bench-user") String userId) {
         var r = stub.likePost(LikePostRequest.newBuilder().setPostId(postId).setUserId(userId).build());
         return Map.of("postId", r.getPostId(), "likeCount", r.getLikeCount());
     }

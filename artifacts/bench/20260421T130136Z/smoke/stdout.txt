@@ -1,0 +1,132 @@
+
+          /\      |‾‾| /‾‾/   /‾‾/   
+     /\  /  \     |  |/  /   /  /    
+    /  \/    \    |     (   /   ‾‾\  
+   /          \   |  |\  \ |  (‾)  | 
+  / __________ \  |__| \__\ \_____/ .io
+
+     execution: local
+        script: /scripts/main.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 400 max VUs, 1m0s max duration (incl. graceful stop):
+              * main: 200.00 iterations/s for 30s (maxVUs: 50-400, exec: run, gracefulStop: 30s)
+
+
+running (0m01.0s), 124/124 VUs, 0 complete and 0 interrupted iterations
+main   [   3% ] 124/124 VUs  01.0s/30s  200.00 iters/s
+
+running (0m02.0s), 028/139 VUs, 282 complete and 0 interrupted iterations
+main   [   7% ] 028/139 VUs  02.0s/30s  200.00 iters/s
+
+running (0m03.0s), 013/139 VUs, 497 complete and 0 interrupted iterations
+main   [  10% ] 013/139 VUs  03.0s/30s  200.00 iters/s
+
+running (0m04.0s), 017/139 VUs, 693 complete and 0 interrupted iterations
+main   [  13% ] 017/139 VUs  04.0s/30s  200.00 iters/s
+
+running (0m05.0s), 013/139 VUs, 897 complete and 0 interrupted iterations
+main   [  17% ] 013/139 VUs  05.0s/30s  200.00 iters/s
+
+running (0m06.0s), 012/139 VUs, 1098 complete and 0 interrupted iterations
+main   [  20% ] 012/139 VUs  06.0s/30s  200.00 iters/s
+
+running (0m07.0s), 012/139 VUs, 1297 complete and 0 interrupted iterations
+main   [  23% ] 012/139 VUs  07.0s/30s  200.00 iters/s
+
+running (0m08.0s), 012/139 VUs, 1498 complete and 0 interrupted iterations
+main   [  27% ] 012/139 VUs  08.0s/30s  200.00 iters/s
+
+running (0m09.0s), 012/139 VUs, 1698 complete and 0 interrupted iterations
+main   [  30% ] 012/139 VUs  09.0s/30s  200.00 iters/s
+
+running (0m10.0s), 012/139 VUs, 1898 complete and 0 interrupted iterations
+main   [  33% ] 012/139 VUs  10.0s/30s  200.00 iters/s
+
+running (0m11.0s), 012/139 VUs, 2098 complete and 0 interrupted iterations
+main   [  37% ] 012/139 VUs  11.0s/30s  200.00 iters/s
+
+running (0m12.0s), 012/139 VUs, 2298 complete and 0 interrupted iterations
+main   [  40% ] 012/139 VUs  12.0s/30s  200.00 iters/s
+
+running (0m13.0s), 012/139 VUs, 2498 complete and 0 interrupted iterations
+main   [  43% ] 012/139 VUs  13.0s/30s  200.00 iters/s
+
+running (0m14.0s), 012/139 VUs, 2698 complete and 0 interrupted iterations
+main   [  47% ] 012/139 VUs  14.0s/30s  200.00 iters/s
+
+running (0m15.0s), 012/139 VUs, 2898 complete and 0 interrupted iterations
+main   [  50% ] 012/139 VUs  15.0s/30s  200.00 iters/s
+
+running (0m16.0s), 012/139 VUs, 3098 complete and 0 interrupted iterations
+main   [  53% ] 012/139 VUs  16.0s/30s  200.00 iters/s
+
+running (0m17.0s), 012/139 VUs, 3298 complete and 0 interrupted iterations
+main   [  57% ] 012/139 VUs  17.0s/30s  200.00 iters/s
+
+running (0m18.0s), 012/139 VUs, 3498 complete and 0 interrupted iterations
+main   [  60% ] 012/139 VUs  18.0s/30s  200.00 iters/s
+
+running (0m19.0s), 012/139 VUs, 3698 complete and 0 interrupted iterations
+main   [  63% ] 012/139 VUs  19.0s/30s  200.00 iters/s
+
+running (0m20.0s), 012/139 VUs, 3898 complete and 0 interrupted iterations
+main   [  67% ] 012/139 VUs  20.0s/30s  200.00 iters/s
+
+running (0m21.0s), 012/139 VUs, 4098 complete and 0 interrupted iterations
+main   [  70% ] 012/139 VUs  21.0s/30s  200.00 iters/s
+
+running (0m22.0s), 012/139 VUs, 4298 complete and 0 interrupted iterations
+main   [  73% ] 012/139 VUs  22.0s/30s  200.00 iters/s
+
+running (0m23.0s), 012/139 VUs, 4498 complete and 0 interrupted iterations
+main   [  77% ] 012/139 VUs  23.0s/30s  200.00 iters/s
+
+running (0m24.0s), 012/139 VUs, 4698 complete and 0 interrupted iterations
+main   [  80% ] 012/139 VUs  24.0s/30s  200.00 iters/s
+
+running (0m25.0s), 012/139 VUs, 4898 complete and 0 interrupted iterations
+main   [  83% ] 012/139 VUs  25.0s/30s  200.00 iters/s
+
+running (0m26.0s), 012/139 VUs, 5098 complete and 0 interrupted iterations
+main   [  87% ] 012/139 VUs  26.0s/30s  200.00 iters/s
+
+running (0m27.0s), 012/139 VUs, 5298 complete and 0 interrupted iterations
+main   [  90% ] 012/139 VUs  27.0s/30s  200.00 iters/s
+
+running (0m28.0s), 012/139 VUs, 5498 complete and 0 interrupted iterations
+main   [  93% ] 012/139 VUs  28.0s/30s  200.00 iters/s
+
+running (0m29.0s), 012/139 VUs, 5698 complete and 0 interrupted iterations
+main   [  97% ] 012/139 VUs  29.0s/30s  200.00 iters/s
+
+running (0m30.0s), 012/139 VUs, 5898 complete and 0 interrupted iterations
+main   [ 100% ] 012/139 VUs  30.0s/30s  200.00 iters/s
+
+     ✓ hot feed 200
+     ✓ get post 200
+     ✓ create post 201
+
+     checks.........................: 100.00% ✓ 17736     ✗ 0    
+     data_received..................: 41 MB   1.3 MB/s
+     data_sent......................: 3.8 MB  126 kB/s
+     dropped_iterations.............: 89      2.960727/s
+     http_req_blocked...............: avg=6.65µs   min=1µs      med=2.92µs  max=7ms      p(90)=5.23µs   p(95)=5.71µs  
+     http_req_connecting............: avg=2.42µs   min=0s       med=0s      max=6.92ms   p(90)=0s       p(95)=0s      
+   ✓ http_req_duration..............: avg=9.06ms   min=988.1µs  med=2.58ms  max=762.08ms p(90)=5.58ms   p(95)=17.64ms 
+       { expected_response:true }...: avg=9.06ms   min=988.1µs  med=2.58ms  max=762.08ms p(90)=5.58ms   p(95)=17.64ms 
+   ✓ http_req_failed................: 0.00%   ✓ 0         ✗ 17736
+     http_req_receiving.............: avg=147.16µs min=16.17µs  med=61.08µs max=32.37ms  p(90)=122.57µs p(95)=211.3µs 
+     http_req_sending...............: avg=20.97µs  min=5.07µs   med=19.59µs max=4.81ms   p(90)=27.35µs  p(95)=32.18µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s      max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=8.89ms   min=904.76µs med=2.5ms   max=757.48ms p(90)=5.38ms   p(95)=17.51ms 
+     http_reqs......................: 17736   590.01639/s
+     iteration_duration.............: avg=78.14ms  min=56.6ms   med=59.37ms max=1.21s    p(90)=65.71ms  p(95)=113.59ms
+     iterations.....................: 5912    196.67213/s
+     vus............................: 12      min=11      max=124
+     vus_max........................: 139     min=124     max=139
+
+time="2026-04-21T13:02:07Z" level=error msg="failed to handle the end-of-test summary" error="Could not save some summary information:\n\t- could not open '/out/summary.json': open /out/summary.json: permission denied"
+
+running (0m30.1s), 000/139 VUs, 5912 complete and 0 interrupted iterations
+main ✓ [ 100% ] 000/139 VUs  30s  200.00 iters/s
