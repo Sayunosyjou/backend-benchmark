@@ -4,7 +4,7 @@ services:
     command: ["redpanda", "start", "--overprovisioned", "--smp", "1", "--memory", "1G", "--reserve-memory", "0M", "--node-id", "0", "--check=false", "--kafka-addr", "PLAINTEXT://0.0.0.0:9092", "--advertise-kafka-addr", "PLAINTEXT://redpanda:9092"]
     ports: ["9092:9092"]
     healthcheck:
-      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy: true'"]
+      test: ["CMD-SHELL", "rpk cluster health | grep -qE 'Healthy:.*true'"]
       interval: 10s
       timeout: 5s
       retries: 20
@@ -39,6 +39,7 @@ services:
       KAFKA_BROKER: redpanda:9092
       KAFKA_TOPIC: post-events
       MAX_CACHE_RECENT: ${MAX_CACHE_RECENT:-3000}
+    restart: always
     depends_on:
       valkey: { condition: service_healthy }
       mongo: { condition: service_healthy }
@@ -58,6 +59,7 @@ services:
       KAFKA_GROUP: post-consumer
       BATCH_FLUSH_MS: ${BATCH_FLUSH_MS:-200}
       MAX_BATCH_SIZE: ${MAX_BATCH_SIZE:-500}
+    restart: always
     depends_on:
       core-service: { condition: service_started }
 
@@ -67,6 +69,7 @@ services:
       dockerfile: web-node-java/Dockerfile
     environment:
       GRPC_TARGET: core-service:9090
+    restart: always
     depends_on:
       core-service: { condition: service_started }
 
@@ -78,6 +81,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-dev-secret}
       VALKEY_HOST: valkey
       VALKEY_PORT: 6379
+    restart: always
     depends_on:
       web-node: { condition: service_started }
       valkey: { condition: service_healthy }
@@ -98,6 +102,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-dev-secret}
       SEED_POST_COUNT: ${SEED_POST_COUNT:-5000}
       SEED_USER_COUNT: ${SEED_USER_COUNT:-200}
+    restart: always
     depends_on:
       gateway: { condition: service_healthy }
     profiles: ["tools"]

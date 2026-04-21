@@ -51,7 +51,7 @@ func NewStore(ctx context.Context, redisAddr, mongoURI, mongoDB, mongoColl, brok
 		return nil, err
 	}
 	cfg := sarama.NewConfig()
-	cfg.Version = sarama.V3_6_0_0
+	cfg.Version = sarama.V2_1_0_0
 	cfg.Producer.Return.Successes = true
 	cfg.Producer.RequiredAcks = sarama.WaitForLocal
 	producer, err := sarama.NewSyncProducer([]string{broker}, cfg)

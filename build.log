@@ -1,0 +1,266 @@
+ Image backend-benchmark-web-node Building 
+ Image backend-benchmark-core-service Building 
+ Image backend-benchmark-gateway Building 
+ Image backend-benchmark-consumer Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.95kB done
+#1 DONE 0.0s
+
+#2 [core-service internal] load build definition from Dockerfile
+#2 transferring dockerfile: 835B done
+#2 DONE 0.0s
+
+#3 [consumer internal] load build definition from Dockerfile
+#3 transferring dockerfile: 324B done
+#3 DONE 0.0s
+
+#4 [web-node internal] load build definition from Dockerfile
+#4 transferring dockerfile: 410B done
+#4 DONE 0.0s
+
+#5 [gateway internal] load build definition from Dockerfile
+#5 transferring dockerfile: 373B done
+#5 DONE 0.0s
+
+#6 [web-node internal] load metadata for docker.io/library/eclipse-temurin:21-jre-jammy
+#6 ...
+
+#7 [consumer internal] load metadata for gcr.io/distroless/base-debian12:nonroot
+#7 DONE 0.1s
+
+#8 [consumer internal] load metadata for docker.io/library/golang:1.22.12-bookworm
+#8 DONE 0.2s
+
+#9 [core-service internal] load metadata for docker.io/library/golang:1.23.8-bookworm
+#9 DONE 0.2s
+
+#6 [web-node internal] load metadata for docker.io/library/eclipse-temurin:21-jre-jammy
+#6 DONE 0.2s
+
+#10 [consumer internal] load .dockerignore
+#10 transferring context: 2B done
+#10 DONE 0.0s
+
+#11 [web-node internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#11 DONE 0.2s
+
+#12 [core-service internal] load .dockerignore
+#12 transferring context: 2B done
+#12 DONE 0.0s
+
+#13 [gateway internal] load metadata for docker.io/openresty/openresty:1.25.3.2-0-bookworm-fat
+#13 DONE 0.2s
+
+#14 [web-node internal] load build context
+#14 DONE 0.0s
+
+#15 [gateway internal] load .dockerignore
+#15 transferring context: 2B done
+#15 DONE 0.0s
+
+#16 [gateway internal] load build context
+#16 transferring context: 87B done
+#16 DONE 0.0s
+
+#17 [consumer stage-1 1/3] FROM gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305
+#17 resolve gcr.io/distroless/base-debian12:nonroot@sha256:956eee19d77039968b05209dce21e43c84fb2bae7644a2b0546b36996c96e305 0.1s done
+#17 DONE 0.1s
+
+#18 [core-service stage-1 2/3] WORKDIR /app
+#18 CACHED
+
+#19 [core-service builder  1/10] FROM docker.io/library/golang:1.23.8-bookworm@sha256:0b4f8c5d414756a53ba0e4d235151f9b246552e512c3feaad5f9a3251376b279
+#19 resolve docker.io/library/golang:1.23.8-bookworm@sha256:0b4f8c5d414756a53ba0e4d235151f9b246552e512c3feaad5f9a3251376b279 0.1s done
+#19 DONE 0.1s
+
+#20 [consumer builder 1/6] FROM docker.io/library/golang:1.22.12-bookworm@sha256:3d699e4d15d0f8f13c9195c0632a16702b8cbdece2955af1c23b37ae5d55a253
+#20 resolve docker.io/library/golang:1.22.12-bookworm@sha256:3d699e4d15d0f8f13c9195c0632a16702b8cbdece2955af1c23b37ae5d55a253 0.1s done
+#20 DONE 0.1s
+
+#21 [web-node stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre-jammy@sha256:fa4854e6057665066cb79953616671c20f32b96a85d6dd8b78db0762203924c4
+#21 resolve docker.io/library/eclipse-temurin:21-jre-jammy@sha256:fa4854e6057665066cb79953616671c20f32b96a85d6dd8b78db0762203924c4 0.1s done
+#21 DONE 0.1s
+
+#22 [core-service internal] load build context
+#22 transferring context: 896B done
+#22 DONE 0.0s
+
+#23 [gateway 1/4] FROM docker.io/openresty/openresty:1.25.3.2-0-bookworm-fat@sha256:5281edb33dbd83765b5c57b7a4f590cca8fe3f6cc1392fb93c2ce1fa720dc771
+#23 resolve docker.io/openresty/openresty:1.25.3.2-0-bookworm-fat@sha256:5281edb33dbd83765b5c57b7a4f590cca8fe3f6cc1392fb93c2ce1fa720dc771 0.1s done
+#23 DONE 0.1s
+
+#24 [web-node builder 1/6] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+#24 resolve docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e 0.1s done
+#24 DONE 0.1s
+
+#25 [consumer internal] load build context
+#25 transferring context: 179B done
+#25 DONE 0.0s
+
+#26 [gateway 3/4] COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+#26 CACHED
+
+#27 [gateway 2/4] RUN /usr/local/openresty/bin/opm get SkyLothar/lua-resty-jwt  && /usr/local/openresty/bin/opm get openresty/lua-resty-redis
+#27 CACHED
+
+#28 [gateway 4/4] COPY lua /etc/nginx/lua
+#28 CACHED
+
+#29 [consumer builder 2/6] WORKDIR /src
+#29 CACHED
+
+#30 [consumer builder 6/6] RUN go build -o /out/consumer ./cmd/consumer
+#30 CACHED
+
+#31 [consumer builder 3/6] COPY go.mod go.sum ./
+#31 CACHED
+
+#32 [consumer builder 5/6] COPY . .
+#32 CACHED
+
+#33 [consumer builder 4/6] RUN go mod download
+#33 CACHED
+
+#34 [core-service builder  9/10] RUN mkdir -p proto && protoc --proto_path=/src/proto --go_out=proto --go_opt=paths=source_relative --go-grpc_out=proto --go-grpc_opt=paths=source_relative /src/proto/post.proto
+#34 CACHED
+
+#35 [core-service builder  4/10] RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.6 && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+#35 CACHED
+
+#36 [core-service builder  3/10] RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
+#36 CACHED
+
+#37 [core-service builder  7/10] COPY core-service-go .
+#37 CACHED
+
+#38 [core-service builder  5/10] COPY core-service-go/go.mod core-service-go/go.sum ./
+#38 CACHED
+
+#39 [core-service builder  8/10] COPY proto /src/proto
+#39 CACHED
+
+#40 [core-service builder  2/10] WORKDIR /src/core-service-go
+#40 CACHED
+
+#41 [core-service builder  6/10] RUN go mod download
+#41 CACHED
+
+#42 [consumer stage-1 3/3] COPY --from=builder /out/consumer /app/consumer
+#42 CACHED
+
+#43 [core-service builder 10/10] RUN go build -o /out/core-service ./cmd/server
+#43 CACHED
+
+#14 [web-node internal] load build context
+#14 transferring context: 797B done
+#14 DONE 0.0s
+
+#44 [web-node builder 2/6] WORKDIR /src/web-node-java
+#44 CACHED
+
+#45 [web-node builder 5/6] COPY proto /src/proto
+#45 CACHED
+
+#46 [web-node builder 6/6] RUN mvn -q -DskipTests package
+#46 CACHED
+
+#47 [web-node builder 3/6] COPY web-node-java/pom.xml ./
+#47 CACHED
+
+#48 [web-node stage-1 2/3] WORKDIR /app
+#48 CACHED
+
+#49 [web-node builder 4/6] COPY web-node-java/src ./src
+#49 CACHED
+
+#50 [web-node stage-1 3/3] COPY --from=builder /src/web-node-java/target/web-node-java-0.0.1.jar /app/app.jar
+#50 CACHED
+
+#51 [core-service stage-1 3/3] COPY --from=builder /out/core-service /app/core-service
+#51 DONE 0.1s
+
+#52 [web-node] exporting to image
+#52 exporting layers done
+#52 exporting manifest sha256:75b25f4508298ad669d888cbad86893b1c0ec7010e3fb77f6449b92288c2da66 0.0s done
+#52 exporting config sha256:68a7752bc193f570f24fc8bf906c8af5b72131c1e2d735438e810ab253248fec 0.0s done
+#52 exporting attestation manifest sha256:520e83ca6b8047254337913573be562c075424cc89c5e16876b5585f8d8b1572 0.1s done
+#52 exporting manifest list sha256:8c4c0c894450c8d2e6bc70e0796a502595e91d5ce3c4cd0f8ceaa826c2c93718
+#52 exporting manifest list sha256:8c4c0c894450c8d2e6bc70e0796a502595e91d5ce3c4cd0f8ceaa826c2c93718 0.0s done
+#52 naming to docker.io/library/backend-benchmark-web-node:latest done
+#52 unpacking to docker.io/library/backend-benchmark-web-node:latest 0.0s done
+#52 DONE 0.2s
+
+#53 [gateway] exporting to image
+#53 exporting layers done
+#53 exporting manifest sha256:ab47e9324da2a7407379d8493cc7fc9bd0504451d3ef96f11841d7d05225b0af done
+#53 exporting config sha256:b671c97683cf39191778805855e096d5edd24f383cc7ccd6505c07620abc15c9 done
+#53 exporting attestation manifest sha256:9703be3a4cec2c21f6ff4d54668d4a22a3c43d2622b9f486e01263913a6e0d17 0.1s done
+#53 exporting manifest list sha256:cc93d46e1902c8dd167e97cc1baccdc7e254fb0d33cd56dd556a377f8b1b2f57 0.0s done
+#53 naming to docker.io/library/backend-benchmark-gateway:latest 0.0s done
+#53 unpacking to docker.io/library/backend-benchmark-gateway:latest 0.0s done
+#53 DONE 0.3s
+
+#54 [consumer] exporting to image
+#54 exporting layers done
+#54 exporting manifest sha256:e313c11a3ece809970f08b24a4867a9dfaec47e98a346d93d2896272c7535a58 done
+#54 exporting config sha256:9acb9185d64e5a3e6988e73c374d85ad677c34090c5ee4f4e13c19af1dcd5f94 0.0s done
+#54 exporting attestation manifest sha256:a817662e9e013608a774fde240b7c36463be054570e50dfa3b4e88220e11b499 0.1s done
+#54 exporting manifest list sha256:408c979d78f63a4947650cae63a940c2c5a3a7940922cf5deaa2d3e9fae0960d 0.0s done
+#54 naming to docker.io/library/backend-benchmark-consumer:latest 0.0s done
+#54 unpacking to docker.io/library/backend-benchmark-consumer:latest 0.0s done
+#54 DONE 0.3s
+
+#55 [gateway] resolving provenance for metadata file
+#55 DONE 0.0s
+
+#56 [web-node] resolving provenance for metadata file
+#56 DONE 0.0s
+
+#57 [consumer] resolving provenance for metadata file
+#57 DONE 0.0s
+
+#58 [core-service] exporting to image
+#58 exporting layers 1.2s done
+#58 exporting manifest sha256:4b7cf4e42a919eaddc9e4050efd2db379f891c9efe978e8195a744c8206616ea 0.0s done
+#58 exporting config sha256:b0440a926f7befc6960f72a6ee60f481e4a708df54903738612853b32a80c3bc 0.0s done
+#58 exporting attestation manifest sha256:1792dffcdcf7b5ff09fffe2a4085df4edde344c2d693dc7f82f5bcbeb6abd59b 0.0s done
+#58 exporting manifest list sha256:3ac19b3da07cac80fc5e965cb98aeb938ffc17552b7a00aff84a2bb7df3685b7 0.0s done
+#58 naming to docker.io/library/backend-benchmark-core-service:latest done
+#58 unpacking to docker.io/library/backend-benchmark-core-service:latest 0.1s done
+#58 DONE 1.4s
+
+#59 [core-service] resolving provenance for metadata file
+#59 DONE 0.0s
+ Image backend-benchmark-core-service Built 
+ Image backend-benchmark-web-node Built 
+ Image backend-benchmark-gateway Built 
+ Image backend-benchmark-consumer Built 
+ Network backend-benchmark_default Creating 
+ Network backend-benchmark_default Created 
+ Container backend-benchmark-redpanda-1 Creating 
+ Container backend-benchmark-mongo-1 Creating 
+ Container backend-benchmark-valkey-1 Creating 
+ Container backend-benchmark-redpanda-1 Created 
+ Container backend-benchmark-valkey-1 Created 
+ Container backend-benchmark-mongo-1 Created 
+ Container backend-benchmark-core-service-1 Creating 
+ Container backend-benchmark-core-service-1 Created 
+ Container backend-benchmark-web-node-1 Creating 
+ Container backend-benchmark-consumer-1 Creating 
+ Container backend-benchmark-web-node-1 Created 
+ Container backend-benchmark-gateway-1 Creating 
+ Container backend-benchmark-consumer-1 Created 
+ Container backend-benchmark-gateway-1 Created 
+ Container backend-benchmark-redpanda-1 Starting 
+ Container backend-benchmark-mongo-1 Starting 
+ Container backend-benchmark-valkey-1 Starting 
+ Container backend-benchmark-mongo-1 Started 
+ Container backend-benchmark-redpanda-1 Started 
+ Container backend-benchmark-valkey-1 Started 
+ Container backend-benchmark-valkey-1 Waiting 
+ Container backend-benchmark-mongo-1 Waiting 
+ Container backend-benchmark-redpanda-1 Waiting 
+ Container backend-benchmark-valkey-1 Healthy 
+ Container backend-benchmark-mongo-1 Healthy 
+ Container backend-benchmark-redpanda-1 Error dependency redpanda failed to start
+dependency failed to start: container backend-benchmark-redpanda-1 is unhealthy
